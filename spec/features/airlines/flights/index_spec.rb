@@ -31,4 +31,40 @@ RSpec.describe "Flights Index Page" do
       expect(page).to have_content(@passenger2.name)
     end
   end
+
+  it 'shows a link to remove a passenger from the flights' do
+    within("#flight-#{@flight1.id}") do
+      expect(page).to have_button("Remove #{@passenger1.name}")
+      expect(page).to_not have_button("Remove #{@passenger2.name}")
+    end
+
+    within("#flight-#{@flight2.id}") do
+      expect(page).to have_button("Remove #{@passenger1.name}")
+      expect(page).to have_button("Remove #{@passenger2.name}")
+    end
+  end
+
+  it 'can click the button to remove a passenger just for that flight' do
+    expect(@flight2.passengers.count).to eq(2)
+
+    within("#flight-#{@flight2.id}") do
+      click_button "Remove #{@passenger1.name}"
+    end
+
+    expect(current_path).to eq("/flights")
+
+    within("#flight-#{@flight1.id}") do
+      expect(page).to have_button("Remove #{@passenger1.name}")
+      expect(page).to_not have_button("Remove #{@passenger2.name}")
+    end
+
+    within("#flight-#{@flight2.id}") do
+      within("#passenger-#{@passenger2.id}") do
+        expect(page).to have_content("#{@passenger2.name}")
+      end
+
+      expect(page).to_not have_content(@passenger1.name)
+      expect(@flight2.passengers.count).to eq(1)
+    end
+  end
 end

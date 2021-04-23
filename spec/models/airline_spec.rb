@@ -11,7 +11,7 @@ RSpec.describe Airline, type: :model do
       @southwest = Airline.create!(name: "Frontier Airlines")
       @flight1 = @frontier.flights.create!(number: "123", date: "12/12/12", departure_city: "Denver", arrival_city: "Reno")
       @flight2 = @frontier.flights.create!(number: "321", date: "10/10/10", departure_city: "Reno", arrival_city: "Denver")
-      @flight3 = @southwest.flights.create!(number: "321", date: "10/10/10", departure_city: "Reno", arrival_city: "Denver")
+      @flight3 = @southwest.flights.create!(number: "555", date: "10/10/10", departure_city: "Reno", arrival_city: "Denver")
       @passenger1 = Passenger.create!(name: "Patrick", age: 21)
       @passenger2 = Passenger.create!(name: "Jenna", age: 35)
       @passenger3 = Passenger.create!(name: "Klaudia", age: 5)
